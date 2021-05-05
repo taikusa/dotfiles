@@ -15,6 +15,15 @@ else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# check and install shuf
+if [ -x $(which shuf) ]
+then
+    echo info: shuf is installed
+else
+    echo info: install shuf...
+    brew install coreutils
+fi
+
 # install packages (uninstalled) based on config.sh
 for packages in ${PACKAGES[@]}
 do
