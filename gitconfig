@@ -1,0 +1,21 @@
+[alias]
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%C(green)%d\\ %Creset%s%C(blue)\\ [%cn]" --decorate --date=short
+  lr = log --pretty=format:"%C(yellow)%h\\ %ad%C(green)%d\\ %Creset%s%C(blue)\\ [%cn]" --decorate --date=short -n 5
+  s = status -s
+  ss = status
+  d = diff --color
+  dn = diff --name-only
+  ds = diff --stat
+  a = add
+  aa = add -a
+  ap = add -p
+  au = add -u
+  c = commit -v
+  ca = commit -a -v
+  cm = commit -m
+  cam = commit -a -m
+  co = checkout
+  cob = checkout -b
+
+[core]
+  editor = nvim
