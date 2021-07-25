@@ -15,16 +15,32 @@ else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# install packages (uninstalled) based on config.sh
-for packages in ${PACKAGES[@]}
+# install commands (uninstalled) based on config.sh
+for command in ${COMMANDS[@]}
 do
-    if [ -x $(which ${packages}) ]
+    if [ -x $(which ${command}) ]
     then
-        echo info: ${packages} is installed
+        echo info: ${command} is installed
     else
-        echo info: install ${packages} with homebrew...
-        brew install ${packages} \
-            && echo ok: ${packages} installed \
-            || echo failed: ${packages} could not be installed
+        echo info: install ${command} with homebrew...
+        brew install ${command} \
+            && echo ok: ${command} installed \
+            || echo failed: ${command} could not be installed
     fi
 done
+
+# install packages (uninstalled) based on config.sh
+for package in ${PACKAGES[@]}
+do
+    if [ -x $(which ${package}) ]
+    then
+        echo info: ${package} is installed
+    else
+        echo info: install ${package} with homebrew...
+        brew install ${package} \
+            && echo ok: ${package} installed \
+            || echo failed: ${package} could not be installed
+    fi
+done
+
+# TODO: brew version >= 0.5
