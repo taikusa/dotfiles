@@ -9,4 +9,4 @@ readonly IDEAVIMRC_PATH=$HOME/.ideavimrc
 readonly TMUXCONF_PATH=$HOME/.tmux.conf
 readonly ZSHRC_PATH=$HOME/.zshrc
 
-readonly COMMANDS=(ccat)
+readonly COMMANDS=(shuf ccat)
