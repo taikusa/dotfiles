@@ -1,3 +1,4 @@
+autoload -Uz compinit && compinit
 fpath=($HOME/.zsh $fpath)
 
 PROMPT='%F{black}%K{`prompt-random-color`} %n @ %m [ %. ] %f%k%B ✏️ %b '
@@ -22,10 +23,12 @@ alias ls='ls -lFG' # for mac
 alias rm='rm -iv'
 alias mv='mv -iv'
 alias q='exit'
+alias k='kubectl'
 
 source ~/.zshrc.personal
 
-autoload -Uz compinit && compinit
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
 
 precmd() { print "" }
 
