@@ -1,8 +1,11 @@
 autoload -Uz compinit && compinit
 fpath=($HOME/.zsh $fpath)
 
-PROMPT='%F{black}%K{`prompt-random-color`} %n @ %m [ %. ] %f%k%B ✏️ %b '
-RPROMPT='`rprompt-git-current-branch`'
+NL=$'\n'
+DATE='%F{black}%K{white} 📆 %D{%a. %m/%d %H:%M:%S} %f%k'
+K8S='%F{black}%K{white} $(prompt-k8s-current-context-and-namespace) %f%k' # もしログイン状態で表示/非表示にするなら空白も関数から返すようにする
+GIT='$(prompt-git-current-branch)'
+PROMPT='%F{black}%K{white} 💻 %n @ %m [ %. ] %f%k '${DATE}' '${K8S}' '${GIT}''${NL}'✏️  '
 
 export JAVA_HOME=$(/usr/libexec/java_home -v11)
 export JDK_HOME=${JAVA_HOME} # for coc-java
@@ -32,7 +35,7 @@ complete -F __start_kubectl k
 
 precmd() { print "" }
 
-function rprompt-git-current-branch
+function prompt-git-current-branch
 {
   local branch_name st branch_status
 
@@ -60,6 +63,14 @@ function rprompt-git-current-branch
     branch_status="%F{black}%K{blue} "
   fi
   echo "${branch_status}[${branch_name}] %k%f"
+}
+
+function prompt-k8s-current-context-and-namespace
+{
+  local context namespace
+  context=$(kubectl config get-contexts | grep \* | awk '{print $3}' | awk -F ':' '{print $2}')
+  namespace=$(kubectl config get-contexts | grep \* | awk '{print $5}')
+  echo "${context}:${namespace}"
 }
 
 function prompt-random-color
